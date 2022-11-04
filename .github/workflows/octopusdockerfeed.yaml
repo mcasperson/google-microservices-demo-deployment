@@ -1,0 +1,36 @@
+name: octopusdockerfeed
+
+on:
+  push:
+    paths:
+      - '.github/workflows/octopusdockerfeed.yaml'
+      - 'terraform/octopusdockerfeed/**'
+      - 'github/octopusdockerfeed/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        uses: ./github/octopusdockerfeed
+        with:
+          github_app_id: ${{ secrets.GH_APP_ID }}
+          github_installation_id: ${{ secrets.GH_INSTALLATION_ID }}
+          github_pem_file: ${{ secrets.GH_PEM_FILE }}
+          project_name: octopusdockerfeed
+          project_directory_name: octopusdockerfeed
+          octopus_server: ${{ secrets.OCTOPUS_SERVER }}
+          octopus_apikey: ${{ secrets.OCTOPUS_APIKEY }}
+          octopus_space_id: ${{ secrets.OCTOPUS_SPACE_ID }}
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+          # AWS vars
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-west-1
