@@ -33,7 +33,7 @@ jobs:
           octopus_production_app_environment_id: ${{ secrets.OCTOPUS_PRODUCTION_ENVIRONMENT_ID }}
           octopus_production_security_environment_id: ${{ secrets.OCTOPUS_PRODUCTION_SECURITY_ENVIRONMENT_ID }}
           github_package_pat: ${{ secrets.GH_PACKAGES_PAT }}
-          namespace_prefix: '#{Octopus.Space.Name | Replace "[^A-Za-z0-9]" "-" | ToLower}-'
+          namespace_prefix: '#{Octopus.Space.Name | Replace \"[^A-Za-z0-9]\" \"-\" | ToLower}-'
 
           # AWS vars
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
