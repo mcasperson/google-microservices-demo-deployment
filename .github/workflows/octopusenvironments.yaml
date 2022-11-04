@@ -1,0 +1,42 @@
+name: octopusenvironments
+
+on:
+  push:
+    paths:
+      - '.github/workflows/octopusenvironments.yaml'
+      - 'terraform/octopusenvironments/**'
+      - 'github/octopusenvironments/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        uses: ./github/octopusenvironments
+        with:
+          github_app_id: ${{ secrets.GH_APP_ID }}
+          github_installation_id: ${{ secrets.GH_INSTALLATION_ID }}
+          github_pem_file: ${{ secrets.GH_PEM_FILE }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          project_name: octopusenvironments
+          project_directory_name: octopusenvironments
+          octopus_server: ${{ secrets.OCTOPUS_SERVER }}
+          octopus_apikey: ${{ secrets.OCTOPUS_APIKEY }}
+          octopus_space_id: ${{ secrets.OCTOPUS_SPACE_ID }}
+          octopus_development_app_environment_name: Development
+          octopus_development_app_environment_exists: true
+          octopus_development_security_environment_name: Development (Security)
+          octopus_production_app_environment_name: Production
+          octopus_production_app_environment_exists: true
+          octopus_production_security_environment_name: Production (Security)
+          octopus_administration_environment_name: Administration
+
+          # AWS vars
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-west-1
