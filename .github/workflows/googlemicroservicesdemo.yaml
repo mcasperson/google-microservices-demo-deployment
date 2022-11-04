@@ -1,0 +1,41 @@
+name: googlemicroservicesdemo
+
+on:
+  push:
+    paths:
+      - '.github/workflows/googlemicroservicesdemo.yaml'
+      - 'terraform/googlemicroservicesdemo/**'
+      - 'github/googlemicroservicesdemo/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        uses: ./github/googlemicroservicesdemo
+        with:
+          project_name: googlemicroservicesdemo
+          project_directory_name: googlemicroservicesdemo
+          octopus_server: ${{ secrets.OCTOPUS_SERVER }}
+          octopus_apikey: ${{ secrets.OCTOPUS_APIKEY }}
+          octopus_space_id: ${{ secrets.OCTOPUS_SPACE_ID }}
+          octopus_dockerhub_feed_id: ${{ secrets.OCTOPUS_DOCKERHUB_FEED_ID }}
+          octopus_application_lifecycle_id: ${{ secrets.OCTOPUS_APPLICATION_LIFECYCLE_ID }}
+          octopus_simple_lifecycle_id: ${{ secrets.OCTOPUS_SIMPLE_LIFECYCLE_ID }}
+          octopus_production_only_lifecycle_id: ${{ secrets.OCTOPUS_PRODUCTION_ONLY_LIFECYCLE_ID }}
+          octopus_development_app_environment_id: ${{ secrets.OCTOPUS_DEVELOPMENT_ENVIRONMENT_ID }}
+          octopus_development_security_environment_id: ${{ secrets.OCTOPUS_DEVELOPMENT_SECURITY_ENVIRONMENT_ID }}
+          octopus_production_app_environment_id: ${{ secrets.OCTOPUS_PRODUCTION_ENVIRONMENT_ID }}
+          octopus_production_security_environment_id: ${{ secrets.OCTOPUS_PRODUCTION_SECURITY_ENVIRONMENT_ID }}
+          github_package_pat: ${{ secrets.GH_PACKAGES_PAT }}
+          namespace_prefix: #{Octopus.Space.Name | Replace "[^A-Za-z0-9]" "-" | ToLower}-
+
+          # AWS vars
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-west-1
