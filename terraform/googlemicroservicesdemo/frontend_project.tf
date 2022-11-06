@@ -404,6 +404,7 @@ EOF
         "Octopus.Action.Script.Syntax" : "Bash"
         "Octopus.Action.Script.ScriptBody" : "kubectl get service"
         "OctopusUseBundledTooling" : "False"
+        "Octopus.Action.KubernetesContainers.Namespace": "#{Namespace}"
       }
     }
   }
