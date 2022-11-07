@@ -90,3 +90,15 @@ variable "dockerhub_password" {
   sensitive = true
   description = "The DockerHub password"
 }
+
+variable "dockerhub_feed_name" {
+  type = string
+  nullable = false
+  default = "Docker Hub"
+}
+
+variable "existing_dockerhub_feed" {
+  type = bool
+  nullable = false
+  description = "Reuse an existing Docker Hub feed by the same name"
+}
