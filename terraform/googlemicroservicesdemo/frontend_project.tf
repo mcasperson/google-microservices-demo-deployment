@@ -219,6 +219,9 @@ resource "octopusdeploy_channel" "frontend_mainline" {
       deployment_action = local.deployment_step
       package_reference = local.frontend_package_name
     }
+  }
+  rule {
+    tag = "^$"
     action_package {
       deployment_action = local.check_for_vulnerabilities_step
       package_reference = "${local.frontend_package_name}-sbom"
