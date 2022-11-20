@@ -1,7 +1,7 @@
 locals {
   vulnerability_scan = <<-EOT
       echo "##octopus[stdout-verbose]"
-      docker pull appthreat/dep-scan
+      docker pull ghcr.io/appthreat/dep-scan:v3.0.2
       echo "##octopus[stdout-default]"
 
       SUCCESS=0
