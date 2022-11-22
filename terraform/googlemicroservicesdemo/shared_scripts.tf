@@ -1,7 +1,7 @@
 locals {
   vulnerability_scan = <<-EOT
       echo "##octopus[stdout-verbose]"
-      docker pull ghcr.io/appthreat/dep-scan:v3.0.2
+      docker pull ghcr.io/appthreat/dep-scan:v3.0.3
       echo "##octopus[stdout-default]"
 
       SUCCESS=0
@@ -15,7 +15,7 @@ locals {
 
           # Generate the report, capturing the output, and ensuring $? is set to the exit code
           # Note bom files created against Python projects have this bug: https://github.com/AppThreat/dep-scan/issues/61
-          OUTPUT=$(bash -c "docker run --rm -v \"$PWD:/app\" ghcr.io/appthreat/dep-scan:v3.0.2 scan --bom \"/app/$${x}\" --type bom --report_file /app/depscan.json; exit \$?" 2>&1)
+          OUTPUT=$(bash -c "docker run --rm -v \"$PWD:/app\" ghcr.io/appthreat/dep-scan:v3.0.3 scan --bom \"/app/$${x}\" --type bom --report_file /app/depscan.json; exit \$?" 2>&1)
 
           # Success is set to 1 if the exit code is not zero
           if [[ $? -ne 0 ]]; then
